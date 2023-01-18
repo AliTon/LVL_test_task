@@ -1,9 +1,11 @@
-import {FooterStyle} from "./Footer.srtles";
+import { FooterStyle } from './Footer.srtles'
 
-const Footer  = () => {
-        return <FooterStyle>
-                {new Date().getFullYear()} Copyright © LVL News-App
+const Footer = () => {
+    return (
+        <FooterStyle>
+            {new Date().getFullYear()} Copyright © LVL News-App
         </FooterStyle>
+    )
 }
 
-export  default  Footer;
+export default Footer

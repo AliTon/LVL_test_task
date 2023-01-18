@@ -1,15 +1,15 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {INews} from "../../interfaces";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { INews } from '../../interfaces'
 
 export interface NewsState {
-    data: INews[];
-    loading: boolean;
+    data: INews[]
+    loading: boolean
 }
 
 const initialState: NewsState = {
     data: [],
-    loading: false
-};
+    loading: false,
+}
 
 export const newsSlice = createSlice({
     name: 'news',
@@ -21,18 +21,16 @@ export const newsSlice = createSlice({
             // doesn't actually mutate the state because it uses the Immer library,
             // which detects changes to a "draft state" and produces a brand new
             // immutable state based off those changes
-            state.data  = action.payload;
+            state.data = action.payload
         },
-        getNewsFeed(state){
-            state.loading = true;
-        }
+        getNewsFeed(state) {
+            state.loading = true
+        },
     },
-});
+})
 
-export const { getNewsFeedSuccess, getNewsFeed} = newsSlice.actions;
+export const { getNewsFeedSuccess, getNewsFeed } = newsSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
-
-
