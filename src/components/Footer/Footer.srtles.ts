@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-export const HeaderStyle = styled.div`
-  height: 200px;
-  background-color: red;
+export const FooterStyle = styled.div`
+  height: 100px;
+  width: 100%;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: 0;
+  position: fixed;
 `;

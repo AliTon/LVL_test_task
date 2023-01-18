@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
-export const FooterStyle = styled.div`
-  height: 200px;
-  background-color: gray;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  bottom: 0;
+export const NewsCardStyle = styled.div`
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px
 `;
