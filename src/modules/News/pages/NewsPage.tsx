@@ -3,9 +3,29 @@ import { useAppDispatch, useAppSelector } from '../../../configureApp/hooks'
 import { selectNews } from '../redux/selectors/newsSelector'
 import { getNewsFeed } from '../redux/slices/newsSlice'
 import { Card, List } from 'antd'
-import { NewsPageStyle } from './NewsCard/NewsPage.styles'
 import { Link } from 'react-router-dom'
 import { CalendarOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons'
+import styled from 'styled-components'
+
+export const NewsPageStyle = styled.div`
+    display: flex;
+    justify-content: center;
+    .description {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 8px;
+    }
+    a:link {
+        text-decoration: none;
+    }
+`
 
 const NewsPage = () => {
     const dispatch = useAppDispatch()

@@ -1,10 +1,11 @@
 import React from 'react'
 
-import { Avatar, Card, List } from 'antd'
+import { Card } from 'antd'
 import { useAppDispatch, useAppSelector } from '../../../configureApp/hooks'
 import { selectNews } from '../redux/selectors/newsSelector'
 import { getNewsFeed } from '../redux/slices/newsSlice'
 import { CalendarOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons'
+import CommentsList from '../../../components/Comments'
 
 const NewsPageDetails = () => {
     const news = useAppSelector(selectNews)
@@ -27,7 +28,11 @@ const NewsPageDetails = () => {
                         marginBottom: '16px',
                     }}
                 >
-                    <img alt="img" src={singleNews.image} width="100%" />
+                    <img
+                        alt="img"
+                        src={singleNews.image}
+                        style={{ maxWidth: '600px', width: '100%' }}
+                    />
                 </div>
                 <div>
                     <Meta
@@ -47,27 +52,7 @@ const NewsPageDetails = () => {
                     </div>
                 </div>
             </Card>
-            <h1>Comments...</h1>
-            <List
-                itemLayout="horizontal"
-                dataSource={news}
-                renderItem={(item) => (
-                    <List.Item>
-                        <List.Item.Meta
-                            avatar={
-                                <div style={{ margin: '20px 0' }}>
-                                    <Avatar src={item.image} />
-                                </div>
-                            }
-                            title={item.author}
-                            description={item.text}
-                        />
-                    </List.Item>
-                )}
-                style={{
-                    width: '100%',
-                }}
-            />
+            <CommentsList />
         </>
     )
 }
