@@ -9,4 +9,5 @@ export const FooterStyle = styled.div`
     justify-content: center;
     bottom: 0;
     position: fixed;
+    left: 0;
 `

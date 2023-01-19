@@ -1,4 +1,4 @@
-import { HeaderStyle } from './Header.srtles'
+import { HeaderStyle } from './Header.styles'
 import Logo from '../../LVL.png'
 import { Link } from 'react-router-dom'
 
