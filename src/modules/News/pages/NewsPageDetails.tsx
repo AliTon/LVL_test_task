@@ -1,22 +1,25 @@
 import React from 'react'
 
-import { Card } from 'antd'
+import { Card, Select } from 'antd'
 import { useAppDispatch, useAppSelector } from '../../../configureApp/hooks'
-import { selectNews } from '../redux/selectors/newsSelector'
-import { getNewsFeed } from '../redux/slices/newsSlice'
+import { selectNewsById } from '../redux/selectors/newsSelector'
+import { getNewsByIdAction } from '../redux/actions/newsActions'
 import { CalendarOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons'
 import CommentsList from '../../../components/Comments'
+import { useParams } from 'react-router-dom'
 
 const NewsPageDetails = () => {
-    const news = useAppSelector(selectNews)
+    const { id } = useParams()
     const dispatch = useAppDispatch()
+    const singleNews = useAppSelector(selectNewsById(id as string))
 
-    const singleNews = news[0]
     const { Meta } = Card
 
     React.useEffect(() => {
-        dispatch(getNewsFeed())
-    }, [dispatch])
+        if (id) {
+            dispatch(getNewsByIdAction(id))
+        }
+    }, [dispatch, id])
 
     return (
         <>
@@ -52,7 +55,7 @@ const NewsPageDetails = () => {
                     </div>
                 </div>
             </Card>
-            <CommentsList />
+            <CommentsList comments={singleNews.comments} />
         </>
     )
 }

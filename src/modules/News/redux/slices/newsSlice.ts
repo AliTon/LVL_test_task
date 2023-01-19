@@ -1,35 +1,36 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { INews } from '../../interfaces'
+import { stat } from 'fs'
 
 export interface NewsState {
     data: INews[]
     loading: boolean
+    idMap: Record<string, INews>
 }
 
 const initialState: NewsState = {
     data: [],
+    idMap: {},
     loading: false,
 }
 
 export const newsSlice = createSlice({
     name: 'news',
     initialState,
-    // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
         getNewsFeedSuccess: (state, action) => {
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the Immer library,
-            // which detects changes to a "draft state" and produces a brand new
-            // immutable state based off those changes
             state.data = action.payload
         },
-        getNewsFeed(state) {
-            state.loading = true
+        getNewsByIdSuccess(state, { payload }) {
+            state.idMap[payload.data.id] = {
+                ...payload.data,
+                comments: payload.comments,
+            }
         },
     },
 })
 
-export const { getNewsFeedSuccess, getNewsFeed } = newsSlice.actions
+export const { getNewsFeedSuccess, getNewsByIdSuccess } = newsSlice.actions
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
