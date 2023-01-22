@@ -17,3 +17,8 @@ export interface INews {
     id: string
     comments?: IComment[]
 }
+
+export interface IOrder {
+    orderBy: string
+    mode: 'asc' | 'desc'
+}

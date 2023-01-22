@@ -7,12 +7,13 @@ import {
 import { getNewsByIdAction, getNewsFeedAction } from '../actions/newsActions'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { getNewsByIdSuccess, getNewsFeedSuccess } from '../slices/newsSlice'
+import { IOrder } from '../../interfaces'
 
 function* fetchNewsSaga({
     payload,
-}: PayloadAction<{ orderBy?: string }>): Generator<Effect> {
+}: PayloadAction<{ order: IOrder }>): Generator<Effect> {
     try {
-        const data = yield call(getNews, payload.orderBy)
+        const data = yield call(getNews, payload.order)
         yield put(getNewsFeedSuccess(data))
     } catch (error) {
         yield put({ type: 'FETCH_DATA_ERROR', payload: error })
@@ -34,7 +35,6 @@ function* fetchNewsByIdSaga({
 }
 
 export function* watchFetchNews() {
-    //@ts-ignore
     yield takeEvery(getNewsFeedAction.type, fetchNewsSaga)
     yield takeEvery(getNewsByIdAction.type, fetchNewsByIdSaga)
 }

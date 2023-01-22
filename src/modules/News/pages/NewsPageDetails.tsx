@@ -1,96 +1,69 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { Card } from 'antd'
+import { Card, Skeleton } from 'antd'
 import { useAppDispatch, useAppSelector } from '../../../configureApp/hooks'
-import { selectNewsById } from '../redux/selectors/newsSelector'
+import { selectLoading, selectNewsById } from '../redux/selectors/newsSelector'
 import { getNewsByIdAction } from '../redux/actions/newsActions'
 import { CalendarOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons'
 import CommentsList from '../../../components/Comments'
 import { useParams } from 'react-router-dom'
-import { ImgSkeleton, TextSkeleton } from './sketelons'
-import { format } from 'date-fns'
+import { ImgSkeleton } from './sketelons'
+import { formatDateIfExists } from '../../../utils'
+import { CardImageStyle } from '../styles/index.styled'
 
 const NewsPageDetails = () => {
     const { id } = useParams()
     const dispatch = useAppDispatch()
     const singleNews = useAppSelector(selectNewsById(id as string))
 
-    const loading = true
+    const loading = useAppSelector(selectLoading)
 
     const { Meta } = Card
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (id) {
             dispatch(getNewsByIdAction(id))
         }
     }, [dispatch, id])
 
-    //todo need to remove after integrating loading logic
-    const date = '2023-01-17T08:00:27.576Z'
+    if (loading) {
+        return (
+            <>
+                <ImgSkeleton />
+                <Skeleton />
+            </>
+        )
+    }
+
     return (
         <>
             <Card style={{ width: '100%' }}>
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginBottom: '16px',
-                    }}
-                >
-                    {loading ? (
-                        <img
-                            alt="img"
-                            src={singleNews.image}
-                            style={{ maxWidth: '600px', width: '100%' }}
-                        />
-                    ) : (
-                        <ImgSkeleton />
-                    )}
-                </div>
+                <CardImageStyle>
+                    <img alt="img" src={singleNews.image} />
+                </CardImageStyle>
                 <div>
                     <Meta
-                        title={
-                            loading ? (
-                                singleNews.name
-                            ) : (
-                                <TextSkeleton length={30} />
-                            )
-                        }
+                        title={singleNews.name}
                         description={
                             <div style={{ marginBottom: '20px' }}>
-                                {loading ? (
-                                    singleNews.text
-                                ) : (
-                                    <TextSkeleton length={70} />
-                                )}
+                                {singleNews.text}
                             </div>
                         }
                     />
                     <div className="info">
                         <div>
-                            <UserOutlined /> author:{' '}
-                            {loading ? (
-                                singleNews.author
-                            ) : (
-                                <TextSkeleton length={20} />
-                            )}
+                            <UserOutlined />
+                            {`Author: ${singleNews.author}`}
                         </div>
                         <div>
-                            <EyeOutlined />{' '}
-                            {loading ? (
-                                singleNews.views
-                            ) : (
-                                <TextSkeleton length={5} />
-                            )}
+                            <EyeOutlined />
+                            {`Views: ${singleNews.views}`}
                         </div>
                         <div>
-                            <CalendarOutlined />{' '}
-                            {loading ? (
-                                // singleNews.createdAt
-                                format(new Date(date), 'yyyy-MM-dd  hh:mm a')
-                            ) : (
-                                <TextSkeleton length={20} />
-                            )}
+                            <CalendarOutlined />
+                            {`CreatedAt: ${formatDateIfExists(
+                                singleNews.createdAt
+                            )}`}
                         </div>
                     </div>
                 </div>

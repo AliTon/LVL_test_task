@@ -1,49 +1,19 @@
-import React, { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../../configureApp/hooks'
-import { selectNews } from '../redux/selectors/newsSelector'
-import { getNewsFeedAction } from '../redux/actions/newsActions'
+import React from 'react'
 import { Card, List } from 'antd'
 import { Link } from 'react-router-dom'
 import { CalendarOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons'
-import styled from 'styled-components'
-import { format } from 'date-fns'
+import { INews } from '../interfaces'
+import { formatDateIfExists } from '../../../utils'
+import { NewsPageStyle } from '../styles/index.styled'
 
-export const NewsPageStyle = styled.div`
-    display: flex;
-    justify-content: center;
-    .description {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        height: 70px;
-    }
-    .info {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding-top: 8px;
-    }
-    a:link {
-        text-decoration: none;
-    }
-`
-
-const NewsPage = () => {
-    const dispatch = useAppDispatch()
-    const news = useAppSelector(selectNews)
+interface IProps {
+    news: INews[]
+}
+const NewsFeed: React.FC<IProps> = ({ news }) => {
     const { Meta } = Card
-    const defaultSelected = {
-        label: 'Date',
-        value: 'createdAt',
-    }
-
-    useEffect(() => {
-        dispatch(getNewsFeedAction(defaultSelected.value))
-    }, [dispatch])
 
     return (
-        <div style={{ marginTop: '100px' }}>
+        <NewsPageStyle>
             <List
                 grid={{
                     gutter: 16,
@@ -57,7 +27,7 @@ const NewsPage = () => {
                 dataSource={news}
                 renderItem={(item) => (
                     <List.Item>
-                        <NewsPageStyle>
+                        <div className="newsCard-item">
                             <Link to={`/news/${item.id}`}>
                                 <Card
                                     hoverable
@@ -82,20 +52,17 @@ const NewsPage = () => {
                                         </div>
                                         <div>
                                             <CalendarOutlined />{' '}
-                                            {format(
-                                                new Date(item.createdAt),
-                                                'yyyy-MM-dd  hh:mm a'
-                                            )}
+                                            {formatDateIfExists(item.createdAt)}
                                         </div>
                                     </div>
                                 </Card>
                             </Link>
-                        </NewsPageStyle>
+                        </div>
                     </List.Item>
                 )}
             />
-        </div>
+        </NewsPageStyle>
     )
 }
 
-export default NewsPage
+export default NewsFeed

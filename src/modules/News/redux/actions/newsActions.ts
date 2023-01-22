@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
+import { IOrder } from '../../interfaces'
 
 export const getNewsByIdAction = createAction(
     'GET_NEWS_BY_ID',
@@ -13,10 +14,10 @@ export const getNewsByIdAction = createAction(
 
 export const getNewsFeedAction = createAction(
     'GET_NEWS_FEED',
-    function (orderBy?: string) {
+    function (order: IOrder) {
         return {
             payload: {
-                orderBy,
+                order,
             },
         }
     }

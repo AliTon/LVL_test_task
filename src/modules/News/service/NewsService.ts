@@ -1,14 +1,10 @@
-import { IComment, INews } from '../interfaces'
+import { IComment, INews, IOrder } from '../interfaces'
 import axiosInstance from '../../../configureApp/axiosInstance'
 
-export const getNews = async (orderBy?: string): Promise<INews[]> => {
+export const getNews = async (order: IOrder): Promise<INews[]> => {
     let url = '/news'
-    if (orderBy) {
-        const search = {
-            orderBy,
-            order: 'desc',
-        }
-        const searchParams = new URLSearchParams(search)
+    if (order) {
+        const searchParams = new URLSearchParams({ ...order })
         url += `?${searchParams.toString()}`
     }
 
