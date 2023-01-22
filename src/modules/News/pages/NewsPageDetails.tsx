@@ -7,7 +7,7 @@ import { getNewsByIdAction } from '../redux/actions/newsActions'
 import { CalendarOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons'
 import CommentsList from '../../../components/Comments'
 import { useParams } from 'react-router-dom'
-import { ImgSkeleton } from './sketelons'
+import { ImgSkeleton } from '../../../components/ImgSkeleton/ImgSkeleton'
 import { formatDateIfExists } from '../../../utils'
 import { CardImageStyle } from '../styles/index.styled'
 

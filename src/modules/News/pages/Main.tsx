@@ -5,17 +5,13 @@ import { Select } from 'antd'
 import NewsFeed from '../components/NewsFeed'
 import { IOrder } from '../interfaces'
 import { selectLoading, selectNews } from '../redux/selectors/newsSelector'
-import { ImgSkeleton } from './sketelons'
+import { ImgSkeleton } from '../../../components/ImgSkeleton/ImgSkeleton'
 import {
     ImgSkeletonWrapper,
     MainPageStyle,
     SortingSectionStyle,
 } from '../styles/index.styled'
 
-interface OptionType {
-    value: string
-    label: string
-}
 
 const OrderOptions: OptionType[] = [
     {
