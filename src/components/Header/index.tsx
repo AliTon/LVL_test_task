@@ -1,5 +1,5 @@
 import { HeaderStyle } from './Header.styles'
-import Logo from '../../LVL.png'
+import Logo from '../../../public/icon.png'
 import { Link } from 'react-router-dom'
 
 const Header = () => {
