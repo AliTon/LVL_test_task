@@ -2,13 +2,13 @@ import styled from 'styled-components'
 
 export const HeaderStyle = styled.div`
     position: fixed;
-    display: flex;
-    align-items: center;
-    height: 100px;
-    background: white;
-    width: 100%;
     top: 0;
     left: 0;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: white;
     z-index: 1;
 
     .title {

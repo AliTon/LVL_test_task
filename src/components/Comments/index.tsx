@@ -1,13 +1,12 @@
-import { CommentsStyles } from './Comments.styles'
-import { Avatar, Card, List } from 'antd'
+import { Avatar, List } from 'antd'
 import React from 'react'
-import { IComment } from '../../modules/News/interfaces'
+import { IComment } from '../../modules/News'
 interface IProps {
     comments?: IComment[]
 }
 const CommentsList: React.FC<IProps> = ({ comments = [] }) => {
     return (
-        <CommentsStyles>
+        <>
             <h1>Comments...</h1>
             <List
                 itemLayout="horizontal"
@@ -29,7 +28,7 @@ const CommentsList: React.FC<IProps> = ({ comments = [] }) => {
                     width: '100%',
                 }}
             />
-        </CommentsStyles>
+        </>
     )
 }
 

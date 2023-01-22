@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../configureApp/hooks'
 import { selectNews } from '../redux/selectors/newsSelector'
 import { getNewsFeedAction } from '../redux/actions/newsActions'
-import { Card, List, Select } from 'antd'
+import { Card, List } from 'antd'
 import { Link } from 'react-router-dom'
 import { CalendarOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
+import { format } from 'date-fns'
 
 export const NewsPageStyle = styled.div`
     display: flex;
@@ -15,6 +16,7 @@ export const NewsPageStyle = styled.div`
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        height: 70px;
     }
     .info {
         display: flex;
@@ -31,30 +33,17 @@ const NewsPage = () => {
     const dispatch = useAppDispatch()
     const news = useAppSelector(selectNews)
     const { Meta } = Card
-
-    React.useEffect(() => {
-        dispatch(getNewsFeedAction())
-    }, [dispatch])
-
-    const handleSelectChanged = (value: string) => {
-        dispatch(getNewsFeedAction(value))
+    const defaultSelected = {
+        label: 'Date',
+        value: 'createdAt',
     }
 
+    useEffect(() => {
+        dispatch(getNewsFeedAction(defaultSelected.value))
+    }, [dispatch])
+
     return (
-        <>
-            <Select
-                options={[
-                    {
-                        label: 'Date',
-                        value: 'createdAt',
-                    },
-                    {
-                        label: 'Views',
-                        value: 'views',
-                    },
-                ]}
-                onChange={handleSelectChanged}
-            />
+        <div style={{ marginTop: '100px' }}>
             <List
                 grid={{
                     gutter: 16,
@@ -93,7 +82,10 @@ const NewsPage = () => {
                                         </div>
                                         <div>
                                             <CalendarOutlined />{' '}
-                                            {item.createdAt}
+                                            {format(
+                                                new Date(item.createdAt),
+                                                'yyyy-MM-dd  hh:mm a'
+                                            )}
                                         </div>
                                     </div>
                                 </Card>
@@ -102,7 +94,7 @@ const NewsPage = () => {
                     </List.Item>
                 )}
             />
-        </>
+        </div>
     )
 }
 

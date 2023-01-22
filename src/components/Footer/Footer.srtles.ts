@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
 export const FooterStyle = styled.div`
+    position: fixed;
+    bottom: 0;
+    left: 0;
     height: 100px;
     width: 100%;
-    background-color: gray;
     display: flex;
     align-items: center;
     justify-content: center;
-    bottom: 0;
-    position: fixed;
-    left: 0;
+    background-color: gray;
 `
